@@ -1,7 +1,40 @@
 import React, { useState } from 'react'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import {useNavigate} from "react-router-dom"
 
 const Landing = () => {
-  const [url, setUrl] = useState('')
+  const [longurl, setLongUrl] = useState('')
+  const navigate = useNavigate();
+
+  const handleShorten = (e)=>{
+    e.preventDefault();
+    if(longurl){
+      navigate(`/auth?createNew=${longurl}`)
+    }
+  }
+
+  const faqs = [{
+    question: "What is Snip?",
+    answer: "Snip is a URL shortening service that allows you to create short, memorable links from long URLs. It's perfect for sharing links on social media, in emails, or anywhere you need a concise link."
+  },
+  {
+    question: "How does Snip work?",
+    answer: "Simply paste your long URL into the input field on our homepage, click 'Snip It!', and we'll generate a short link for you. You can then copy and share this link wherever you like."
+  },
+  {
+    question: "Are Snip links permanent?",
+    answer: "Yes, once created, Snip links are permanent and will not expire. However, we reserve the right to remove links that violate our terms of service."
+  },
+  {
+    question: "Can I customize my Snip links?",
+    answer: "Yes! With a premium account, you can create custom branded links that use your own domain name or choose your own keywords for the short URL."
+  }
+]
 
   return (
     <>
@@ -10,18 +43,18 @@ const Landing = () => {
             <p className="text-xl mb-8 text-gray-600 dark:text-gray-300">
               Create short, memorable links in seconds. Share them anywhere, track their performance.
             </p>
-            <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+            <form className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4" onSubmit={handleShorten}>
               <input
                 type="url"
-                placeholder="Enter your long URL here"
+                placeholder="Enter your looooong URL here"
                 className="w-full md:w-96 px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
+                value={longurl}
+                onChange={(e) => setLongUrl(e.target.value)}
                 />
-              <button className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+              <button className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors" type='submit'>
                 Snip It!
               </button>
-            </div>
+            </form>
           </section>
 
           <section className="grid md:grid-cols-3 gap-8 mb-16">
@@ -44,6 +77,17 @@ const Landing = () => {
               Sign Up for Free
             </button>
           </section>
+          <section className="mb-16">
+        <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+        <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
+          {faqs.map((faq, index) => (
+            <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+              <AccordionContent>{faq.answer}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
         </>
   )
 }
