@@ -5,10 +5,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import {Button} from "./../components/ui/button"
+import {Input} from "./../components/ui/input"
 import {useNavigate} from "react-router-dom"
 
 const Landing = () => {
-  const [longurl, setLongUrl] = useState('')
+  const [longUrl, setLongUrl] = useState('')
   const navigate = useNavigate();
 
   const handleShorten = (e)=>{
@@ -17,6 +19,12 @@ const Landing = () => {
       navigate(`/auth?createNew=${longurl}`)
     }
   }
+
+  const features = [
+    { title: 'Lightning Fast', description: 'Create short links in the blink of an eye.' },
+    { title: 'Powerful Analytics', description: 'Track clicks, locations, and more with ease.' },
+    { title: 'Customizable Links', description: 'Create branded links that stand out.' },
+  ]
 
   const faqs = [{
     question: "What is Snip?",
@@ -37,58 +45,51 @@ const Landing = () => {
 ]
 
   return (
-    <>
-    <section className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">Shorten Your Links with Snip</h1>
-            <p className="text-xl mb-8 text-gray-600 dark:text-gray-300">
-              Create short, memorable links in seconds. Share them anywhere, track their performance.
-            </p>
-            <form className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4" onSubmit={handleShorten}>
-              <input
-                type="url"
-                placeholder="Enter your looooong URL here"
-                className="w-full md:w-96 px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800"
-                value={longurl}
-                onChange={(e) => setLongUrl(e.target.value)}
-                />
-              <button className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors" type='submit'>
-                Snip It!
-              </button>
-            </form>
-          </section>
+    <div id="landing-page" className="space-y-16">
+    <section className="text-center">
+      <h1 className="text-4xl md:text-6xl font-bold mb-4">Shorten Your Links with Snip</h1>
+      <p className="text-xl mb-8 text-muted-foreground">
+        Create short, memorable links in seconds. Share them anywhere, track their performance.
+      </p>
+      <form className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4" onSubmit={handleShorten}>
+        <Input
+          type="url"
+          placeholder="Enter your looooong URL here"
+          className="w-full md:w-96 border-gray-500 border-2 h-12"
+          value={longUrl}
+          onChange={(e) => setLongUrl(e.target.value)}
+        />
+        <Button type="submit" className='text-white '>Snip It!</Button>
+      </form>
+    </section>
 
-          <section className="grid md:grid-cols-3 gap-8 mb-16">
-            {[
-                { title: 'Lightning Fast', description: 'Create short links in the blink of an eye.' },
-                { title: 'Powerful Analytics', description: 'Track clicks, locations, and more with ease.' },
-                { title: 'Customizable Links', description: 'Create branded links that stand out.' },
-            ].map((feature, index) => (
-                <div key={index} className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
-              </div>
-            ))}
-          </section>
+    <section className="grid md:grid-cols-3 gap-8">
+      {features.map((feature, index) => (
+        <div key={index} className="bg-card p-6 rounded-lg shadow-sm">
+          <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+          <p className="text-card-foreground">{feature.description}</p>
+        </div>
+      ))}
+    </section>
 
-          <section className="text-center bg-blue-600 text-white p-8 rounded-lg mb-16">
-            <h2 className="text-3xl font-bold mb-4">Ready to Start Snipping?</h2>
-            <p className="mb-8">Join thousands of users who trust Snip for their link shortening needs.</p>
-            <button className="px-6 py-2 bg-white text-blue-600 rounded hover:bg-gray-100 transition-colors">
-              Sign Up for Free
-            </button>
-          </section>
-          <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
-        <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
-          {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-              <AccordionContent>{faq.answer}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </section>
-        </>
+    <section className="text-center bg-primary text-primary-foreground p-8 rounded-lg">
+      <h2 className="text-3xl font-bold mb-4">Ready to Start Snipping?</h2>
+      <p className="mb-8">Join thousands of users who trust Snip for their link shortening needs.</p>
+      <Button variant="secondary">Sign Up for Free</Button>
+    </section>
+
+    <section>
+      <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+      <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
+        {faqs.map((faq, index) => (
+          <AccordionItem key={index} value={`item-${index}`}>
+            <AccordionTrigger>{faq.question}</AccordionTrigger>
+            <AccordionContent>{faq.answer}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </section>
+  </div>
   )
 }
 

@@ -1,0 +1,36 @@
+import React, { useState } from 'react'
+import { Card, CardDescription, CardHeader, CardTitle } from "./../components/ui/card"
+import { Button } from "./../components/ui/button"
+import { Input } from "./../components/ui/input"
+import { Label } from "./../components/ui/label"
+const LoginForm = () => {
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  return (
+    <div>
+      <form className="flex flex-col space-y-4" onSubmit={()=>{}}>
+       
+        <Label>Email</Label>
+        <Input
+          type="email"
+          placeholder="name@example.com"
+          className="w-full md:w-96 border-gray-500 border-2 h-12"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Label>Password</Label>
+        <Input
+          type="password"
+          placeholder="your password"
+          className="w-full md:w-96 border-gray-500 border-2 h-12"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button type="submit" className='text-white '>Submit</Button>
+      </form>
+      
+    </div>
+  )
+}
+
+export default LoginForm
