@@ -3,16 +3,17 @@ import AppLayout from "./layouts/AppLayout"
 import Dashboard from "./pages/Dashboard"
 import Auth from "./pages/Auth"
 import RedirectLink from "./pages/RedirectLink"
-import LandingPage from "./pages/LandingPage"
+// import LandingPage from "./pages/LandingPage"
+import Landing from "./pages/Landing"
+import { ThemeProvider, useTheme } from "./providers/theme-provider"
 
 function App() {
-
   const router = createBrowserRouter([{
     element:<AppLayout />,
     children:[
       {
         path:'/',
-        element:<LandingPage />
+        element:<Landing />
       },
       {
         path:'/dashboard',
@@ -30,8 +31,12 @@ function App() {
   }])
   
   return (
+
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+
     
     <RouterProvider router={router}/>
+    </ThemeProvider>
     
   )
 }

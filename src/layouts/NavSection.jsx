@@ -1,16 +1,30 @@
 import { LogIn, Moon, Scissors, Sun } from 'lucide-react'
 import React, { useState } from 'react'
-import { useDarkMode } from 'usehooks-ts'
+// import { useDarkMode } from 'usehooks-ts'
 import ProfileButton from '../components/ProfileButton'
+import { useTheme } from '../providers/theme-provider'
 
 const NavSection = () => {
-    const { isDarkMode, toggle } = useDarkMode()
+    // const { isDarkMode, toggle } = useDarkMode()
     const toggleLogin = () => {
         setIsLoggedIn(!isLoggedIn) // Toggle login status (for demonstration)
       }
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    const {theme,setTheme}= useTheme();
+
+    const themeToggle=()=>{
+
+      if(theme == "light"){
+        setTheme("dark")
+      }else{
+        setTheme("light")
+      }
+    }
+
+
   return (
-    <div className={`${isDarkMode ? 'dark' : ''}`}>
+    <div >
 
     <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
 
@@ -21,11 +35,11 @@ const NavSection = () => {
           </div>
           <div className="flex items-center space-x-4">
             <button
-              onClick={toggle}
+              onClick={()=>{themeToggle()}}
               className="p-2 rounded-full bg-gray-200 dark:bg-gray-700"
               aria-label="Toggle theme"
               >
-              {isDarkMode ? (
+              {theme == "dark" ? (
                   <Sun className="h-5 w-5" />
                 ) : (
                     <Moon className="h-5 w-5" />
