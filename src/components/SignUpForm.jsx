@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button } from "./../components/ui/button"
 import { Input } from "./../components/ui/input"
 import { Label } from "./../components/ui/label"
+import Error from "./Error"
 
 const SignUpForm = () => {
   const [email,setEmail]=useState('');
@@ -18,6 +19,7 @@ const SignUpForm = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
+      <Error message={"Some Error"} />
       <Label>Password</Label>
       <Input
         type="password"
@@ -26,6 +28,7 @@ const SignUpForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      <Error message={"Some Error"} />
       <Button type="submit" className='text-white '>Submit</Button>
     </form>
     
